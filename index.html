@@ -243,6 +243,25 @@ p {
         opacity: 0;
     }
 }
+
+.balloon {
+    position: fixed;
+    bottom: -50px;
+    font-size: 30px;
+    animation: floatUp 6s linear forwards;
+}
+
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-120vh); opacity: 0; }
+}
+
+.cat {
+    font-size: clamp(60px, 15vw, 90px);
+    margin-top: 15px;
+    animation: float 2s ease-in-out infinite;
+    cursor: pointer;
+}
 </style>
 </head>
 
@@ -331,21 +350,7 @@ function closeMessage() {
 
     document.getElementById("msgCTA").style.display = "block";
 }
-document.addEventListener("click", (e) => {
-    for (let i = 0; i < 6; i++) {
-        let s = document.createElement("div");
-        s.className = "sparkle";
-        s.innerHTML = "✨";
 
-        s.style.left = e.clientX + "px";
-        s.style.top = e.clientY + "px";
-        s.style.animationDelay = i * 50 + "ms";
-
-        document.body.appendChild(s);
-
-        setTimeout(() => s.remove(), 800);
-    }
-});
 
 /* Confetti */
 for (let i = 0; i < 80; i++) {
@@ -391,6 +396,58 @@ document.addEventListener("click", (e) => {
 
         setTimeout(() => s.remove(), 1000);
     }
+});
+// 🎈 Balloons
+for (let i = 0; i < 10; i++) {
+    let b = document.createElement("div");
+    b.className = "balloon";
+    b.innerHTML = ["🎈","🎉","💖","✨"][Math.floor(Math.random()*4)];
+
+    b.style.left = Math.random() * 100 + "%";
+    b.style.animationDelay = i * 0.3 + "s";
+
+    document.body.appendChild(b);
+
+    setTimeout(() => b.remove(), 6000);
+}
+
+let lastTap = 0;
+
+document.addEventListener("touchstart", (e) => {
+    const now = new Date().getTime();
+
+    if (now - lastTap < 300) {
+        for (let i = 0; i < 10; i++) {
+            let h = document.createElement("div");
+            h.className = "sparkle";
+            h.innerHTML = "💖";
+
+            h.style.left = e.touches[0].clientX + "px";
+            h.style.top = e.touches[0].clientY + "px";
+
+            const x = (Math.random() - 0.5) * 120;
+            const y = Math.random() * 150 + 50;
+
+            h.style.setProperty("--x", x + "px");
+            h.style.setProperty("--y", y + "px");
+
+            document.body.appendChild(h);
+
+            setTimeout(() => h.remove(), 1000);
+        }
+    }
+
+    lastTap = now;
+});
+
+document.querySelector(".cat").addEventListener("click", () => {
+    const cat = document.querySelector(".cat");
+
+    cat.innerHTML = "😺💖";
+
+    setTimeout(() => {
+        cat.innerHTML = "🐱🎀";
+    }, 1000);
 });
 
 </script>
