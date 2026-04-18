@@ -153,10 +153,23 @@ p {
     z-index: 10;
 }
 
+
 .gift-box {
     font-size: 80px;
     cursor: pointer;
     animation: bounce 1.5s infinite;
+}
+
+.gift-box:active {
+    animation: shake 0.4s;
+}
+
+@keyframes shake {
+    0% { transform: rotate(0); }
+    25% { transform: rotate(-10deg); }
+    50% { transform: rotate(10deg); }
+    75% { transform: rotate(-10deg); }
+    100% { transform: rotate(0); }
 }
 
 /* CTA */
@@ -262,11 +275,49 @@ p {
     animation: float 2s ease-in-out infinite;
     cursor: pointer;
 }
+
+.bg-image {
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+
+    background-image: url("https://raw.githubusercontent.com/RishabhChoubey/website/main/WhatsApp%20Image%202026-04-11%20at%2010.33.00.jpeg");
+    background-size: contain; /* show full image */
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+@keyframes bgFlow {
+    0%   { transform: scale(1) translate(0,0); }
+    50%  { transform: scale(1.1) translate(-20px, -20px); }
+    100% { transform: scale(1) translate(0,0); }
+}
+.bg-blur {
+    position: fixed;
+    inset: 0;
+    z-index: -3;
+
+    background-image: url("https://raw.githubusercontent.com/RishabhChoubey/website/main/WhatsApp%20Image%202026-04-11%20at%2010.33.00.jpeg");
+    background-size: cover;
+    background-position: center;
+
+    filter: blur(25px);
+    transform: scale(1.2); /* avoid blur edges */
+}
+.bg-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+
+    background: rgba(0,0,0,0.3);
+}
 </style>
 </head>
 
 <body>
-
+<div class="bg-blur"></div>
+<div class="bg-image"></div>
+<div class="bg-overlay"></div>
 <!-- Gift -->
 <div id="giftScreen" class="gift-screen">
     <div class="gift-box" onclick="openGift()">🎁</div>
@@ -376,6 +427,34 @@ for (let i = 0; i < 5; i++) {
     document.body.appendChild(paw);
 }
 
+// 👀 Hidden unlock after taps
+let tapCount = 0;
+
+document.addEventListener("click", () => {
+    tapCount++;
+
+    if (tapCount === 5) {
+        document.getElementById("msgCTA").style.display = "block";
+
+        // 🎉 small reveal effect
+        for (let i = 0; i < 10; i++) {
+            let s = document.createElement("div");
+            s.className = "sparkle";
+            s.innerHTML = "💌";
+
+            s.style.left = Math.random()*100 + "%";
+            s.style.top = Math.random()*100 + "%";
+
+            s.style.setProperty("--x", "0px");
+            s.style.setProperty("--y", "40px");
+
+            document.body.appendChild(s);
+
+            setTimeout(() => s.remove(), 800);
+        }
+    }
+});
+
 document.addEventListener("click", (e) => {
     for (let i = 0; i < 8; i++) {
         let s = document.createElement("div");
@@ -450,6 +529,34 @@ document.querySelector(".cat").addEventListener("click", () => {
     }, 1000);
 });
 
+// 💥 Explosion burst
+for (let i = 0; i < 20; i++) {
+    let e = document.createElement("div");
+    e.className = "sparkle";
+    e.innerHTML = ["✨","💖","🎉"][Math.floor(Math.random()*3)];
+
+    e.style.left = window.innerWidth / 2 + "px";
+    e.style.top = window.innerHeight / 2 + "px";
+
+    const x = (Math.random() - 0.5) * 300;
+    const y = (Math.random() - 0.5) * 300;
+
+    e.style.setProperty("--x", x + "px");
+    e.style.setProperty("--y", y + "px");
+
+    document.body.appendChild(e);
+
+    setTimeout(() => e.remove(), 2000);
+}
+
+const cat = document.querySelector(".cat");
+
+document.addEventListener("touchmove", (e) => {
+    const x = e.touches[0].clientX;
+    const y = e.touches[0].clientY;
+
+    cat.style.transform = `translate(${x/20}px, ${y/20}px)`;
+});
 </script>
 
 </body>
