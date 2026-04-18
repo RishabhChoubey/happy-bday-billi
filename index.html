@@ -119,10 +119,16 @@ p {
     position: fixed;
     bottom: 25px;
     font-size: 22px;
-    opacity: 0.8;
-    z-index: 5;
+    opacity: 0;
 
-    animation: walkX linear infinite;
+    animation: walkX linear infinite, fadePaw 6s linear infinite;
+}
+
+@keyframes fadePaw {
+    0% { opacity: 0; }
+    10% { opacity: 0.8; }
+    80% { opacity: 0.8; }
+    100% { opacity: 0; }
 }
 
 /* Single animation (no conflict) */
@@ -199,6 +205,15 @@ p {
 
     text-align: center;
     line-height: 1.6;
+
+    transform: scale(0.8);
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.popup.show .popup-content {
+    transform: scale(1);
+    opacity: 1;
 }
 
 .close {
@@ -207,6 +222,26 @@ p {
     top: 10px;
     font-size: 22px;
     cursor: pointer;
+}
+
+.sparkle {
+    position: fixed;
+    font-size: 16px;
+    pointer-events: none;
+    z-index: 50;
+
+    animation: sparkleFall 1s ease-out forwards;
+}
+
+@keyframes sparkleFall {
+    0% {
+        transform: translate(0, 0) scale(0.5);
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--x), var(--y)) scale(1.2);
+        opacity: 0;
+    }
 }
 </style>
 </head>
@@ -276,16 +311,41 @@ function startTyping() {
     type();
 }
 
-/* Popup */
 function showMessage() {
-    document.getElementById("popup").style.display = "flex";
+    const popup = document.getElementById("popup");
+    popup.style.display = "flex";
+
+    setTimeout(() => popup.classList.add("show"), 10);
+
     document.getElementById("msgCTA").style.display = "none";
 }
 
 function closeMessage() {
-    document.getElementById("popup").style.display = "none";
+    const popup = document.getElementById("popup");
+
+    popup.classList.remove("show");
+
+    setTimeout(() => {
+        popup.style.display = "none";
+    }, 300);
+
     document.getElementById("msgCTA").style.display = "block";
 }
+document.addEventListener("click", (e) => {
+    for (let i = 0; i < 6; i++) {
+        let s = document.createElement("div");
+        s.className = "sparkle";
+        s.innerHTML = "✨";
+
+        s.style.left = e.clientX + "px";
+        s.style.top = e.clientY + "px";
+        s.style.animationDelay = i * 50 + "ms";
+
+        document.body.appendChild(s);
+
+        setTimeout(() => s.remove(), 800);
+    }
+});
 
 /* Confetti */
 for (let i = 0; i < 80; i++) {
@@ -310,6 +370,29 @@ for (let i = 0; i < 5; i++) {
 
     document.body.appendChild(paw);
 }
+
+document.addEventListener("click", (e) => {
+    for (let i = 0; i < 8; i++) {
+        let s = document.createElement("div");
+        s.className = "sparkle";
+        s.innerHTML = "✨";
+
+        s.style.left = e.clientX + "px";
+        s.style.top = e.clientY + "px";
+
+        // random spread + downward fall
+        const x = (Math.random() - 0.5) * 100;  // left/right
+        const y = Math.random() * 120 + 40;     // downward
+
+        s.style.setProperty("--x", x + "px");
+        s.style.setProperty("--y", y + "px");
+
+        document.body.appendChild(s);
+
+        setTimeout(() => s.remove(), 1000);
+    }
+});
+
 </script>
 
 </body>
