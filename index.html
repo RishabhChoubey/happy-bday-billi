@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Happy Birthday Billi 🐱🎂</title>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+
+<!-- ✅ Important for mobile -->
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>Happy Birthday Billi 🐱🎂</title>
+
+<style>
+body {
+    margin: 0;
+    min-height: 110vh;
+    overflow-x: hidden;
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background: linear-gradient(270deg,#ff9a9e,#fad0c4,#ffd1ff,#ff9a9e);
+    background-size: 600% 600%;
+    animation: bgMove 12s infinite;
+     margin: 0;
+    height: 100vh;
+    overflow: hidden;   /* ✅ prevent scroll completely */
+    font-family: 'Poppins', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+}
+
+
+
+@keyframes bgMove {
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+.card {
+    width: 100%;
+    max-width: 400px; /* ✅ mobile friendly width */
+    background: rgba(255,255,255,0.2);
+    backdrop-filter: blur(12px);
+    padding: 30px 20px;
+    border-radius: 25px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+}
+
+/* Title */
+h1 {
+    font-size: clamp(28px, 6vw, 45px); /* ✅ responsive */
+    margin: 0;
+    animation: glow 2s infinite alternate;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px white; }
+    to { text-shadow: 0 0 25px #ffeb3b; }
+}
+
+.name {
+    font-size: clamp(24px, 5vw, 40px);
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Cake */
+.cake {
+    font-size: clamp(40px, 10vw, 60px);
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+    50% { transform: translateY(-10px); }
+}
+
+/* Cat */
+.cat {
+    font-size: clamp(60px, 15vw, 90px);
+    margin-top: 15px;
+    animation: float 2s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%,100%{ transform: translateY(0); }
+    50%{ transform: translateY(-12px); }
+}
+
+/* Text */
+p {
+    font-size: 14px;
+    margin-top: 10px;
+    line-height: 1.5;
+}
+
+/* Confetti */
+.confetti {
+    position: fixed;
+    width: 6px;
+    height: 6px;
+    top: -10px;
+    animation: fall linear infinite;
+}
+
+
+@keyframes fall {
+    to {
+        transform: translateY(110vh) rotate(360deg);
+    }
+}
+
+/* Paw prints */
+.paw {
+    position: absolute;
+    font-size: 20px;
+    opacity: 0.6;
+    animation: walk 10s linear infinite;
+}
+
+@keyframes walk {
+    0%{ left:-10%; top:80%; }
+    100%{ left:110%; top:20%; }
+}
+
+/* ✅ Extra small screen tweak */
+@media (max-width: 350px) {
+    .card {
+        padding: 20px 15px;
+    }
+}
+
+/* 🎁 Gift screen */
+.gift-screen {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(270deg,#ff9a9e,#fad0c4,#ffd1ff);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 10;
+}
+
+.gift-box {
+    font-size: 80px;
+    cursor: pointer;
+    animation: bounce 1.5s infinite;
+}
+
+.gift-screen p {
+    margin-top: 10px;
+    font-size: 18px;
+}
+
+/* 💌 Message icon */
+.msg-icon {
+    position: fixed;
+    bottom: 25px;
+    right: 25px;
+    font-size: 40px;
+    cursor: pointer;
+    display: none; /* hidden initially */
+    animation: jump 1s infinite;
+    z-index: 20;
+}
+
+@keyframes jump {
+    50% { transform: translateY(-10px); }
+}
+
+/* 💬 Popup */
+.popup {
+    display: none;
+    position: fixed;
+    z-index: 30;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(8px);
+    background: rgba(0,0,0,0.4);
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background: white;
+    color: #333;
+    padding: 25px;
+    border-radius: 20px;
+    width: 85%;
+    max-width: 350px;
+    text-align: center;
+    line-height: 1.6;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.close {
+    position: absolute;
+    right: 20px;
+    top: 10px;
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.msg-cta {
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%); /* only positioning */
+    z-index: 999;
+}
+
+.msg-cta.show {
+    opacity: 1;
+    transform:  scale(1);
+}
+
+.msg-box {
+    background: rgba(255,255,255,0.9);
+    color: #ff4081;
+    padding: 15px 25px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    /* animation: pulse 1.5s infinite; */
+}
+
+/* ✅ animation now safe */
+@keyframes pulse {
+    0%   { transform: scale(1); }
+    50%  { transform: scale(1.08); }
+    100% { transform: scale(1); }
+}
+</style>
+
+</head>
+
+
+<body>
+
+<!-- 🎁 Gift Screen -->
+<div id="giftScreen" class="gift-screen">
+    <div class="gift-box" onclick="openGift()">🎁</div>
+    <p>Click Me Billi🐱</p>
+</div>
+
+<!-- 🎉 Main Card (hidden initially) -->
+<div id="mainCard" class="card" style="display:none;">
+
+    <div class="cake">🎂</div>
+
+    <h1>Happy Birthday</h1>
+
+    <div class="name">Billi 🐱</div>
+
+    <!-- ✨ Typing text -->
+    <p id="typingText"></p>
+
+    <div class="cat">🐱🎀</div>
+
+</div>
+
+<script>
+
+/* 🎁 Open Gift Animation */
+function openGift() {
+    document.getElementById("giftScreen").style.display = "none";
+    document.getElementById("mainCard").style.display = "block";
+
+    startTyping(); // start typing after opening
+}
+
+/* ✨ Typing Effect */
+const message = "Wishing you a day full of treats, smiles, and lots of love… just like a spoiled little cat 😄 🥳";
+let index = 0;
+
+function startTyping() {
+    const el = document.getElementById("typingText");
+
+    function type() {
+        if (index < message.length) {
+            el.innerHTML += message.charAt(index);
+            index++;
+            setTimeout(type, 40); // typing speed
+        }
+    }
+
+    type();
+}
+
+/* 🎊 Confetti */
+for (let i = 0; i < 120; i++) {
+    let c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "vw";
+    c.style.animationDuration = (3 + Math.random() * 3) + "s";
+    c.style.backgroundColor =
+        ["#ff0","#ff4081","#0ff","#0f0","#fff"][Math.floor(Math.random()*5)];
+    document.body.appendChild(c);
+}
+
+/* 🐾 Paw prints */
+for (let i = 0; i < 6; i++) {
+    let paw = document.createElement("div");
+    paw.className = "paw";
+    paw.innerHTML = "🐾";
+    paw.style.animationDelay = i * 2 + "s";
+    document.body.appendChild(paw);
+}
+
+// /* 🎁 Open Gift */
+// function openGift() {
+//     document.getElementById("giftScreen").style.display = "none";
+//     document.getElementById("mainCard").style.display = "block";
+
+//     startTyping();
+
+//     // 💌 show message icon after gift opens
+//     document.getElementById("msgIcon").style.display = "block";
+// }
+function openGift() {
+    document.getElementById("giftScreen").style.display = "none";
+    document.getElementById("mainCard").style.display = "block";
+    document.getElementById("msgCTA").style.display = "block";
+
+    startTyping();
+
+    // 💌 Show CTA after slight delay (better feel)
+    setTimeout(() => {
+        document.getElementById("msgCTA").style.display = "block";
+    }, 1500);
+}
+
+// /* 💌 Show popup */
+// function showMessage() {
+//     document.getElementById("popup").style.display = "flex";
+// }
+function showMessage() {
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("msgCTA").style.display = "none";
+}
+
+/* ❌ Close popup */
+function closeMessage() {
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("msgCTA").style.display = "block";
+}   
+
+
+</script>
+
+
+<div id="msgCTA" class="msg-cta" style="display:None">
+    <div class="msg-box" onclick="showMessage()" >
+        💌
+        <span>Want to read a message?</span>
+    </div>
+</div>
+<!-- 💬 Popup Message -->
+<div id="popup" class="popup">
+    <div class="popup-content">
+        <span class="close" onclick="closeMessage()">×</span>
+        <p>
+            Hey Billi 🐱,<br><br>
+            You are honestly one of the most special people 💖  
+            Stay happy, keep smiling, and always be this adorable 😄  
+            <br><br>
+            — From someone who secretly smiles because of you 😉
+        </p>
+    </div>
+</div>
+</body>
+</html>
