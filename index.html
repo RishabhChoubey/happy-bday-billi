@@ -2,42 +2,36 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8" />
-<title>Happy Birthday Billi 🐱🎂</title>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8" />
-
-<!-- ✅ Important for mobile -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
 <title>Happy Birthday Billi 🐱🎂</title>
 
 <style>
-body {
+* {
+    box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+}
+
+html, body {
     margin: 0;
-    min-height: 110vh;
-    overflow-x: hidden;
+    height: 100%;
+    overflow: hidden;
     font-family: 'Poppins', sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background: linear-gradient(270deg,#ff9a9e,#fad0c4,#ffd1ff,#ff9a9e);
-    background-size: 600% 600%;
-    animation: bgMove 12s infinite;
-     margin: 0;
-    height: 100vh;
-    overflow: hidden;   /* ✅ prevent scroll completely */
-    font-family: 'Poppins', sans-serif;
+}
+
+/* 🔥 LOCK SCREEN (NO MOBILE JUMP) */
+body {
+    position: fixed;
+    inset: 0;
+
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 15px;
+
+    background: linear-gradient(270deg,#ff9a9e,#fad0c4,#ffd1ff,#ff9a9e);
+    background-size: 600% 600%;
+    animation: bgMove 25s linear infinite;
 }
-
-
 
 @keyframes bgMove {
     0%{background-position:0% 50%;}
@@ -45,9 +39,10 @@ body {
     100%{background-position:0% 50%;}
 }
 
+/* Card */
 .card {
     width: 100%;
-    max-width: 400px; /* ✅ mobile friendly width */
+    max-width: 400px;
     background: rgba(255,255,255,0.2);
     backdrop-filter: blur(12px);
     padding: 30px 20px;
@@ -55,11 +50,13 @@ body {
     text-align: center;
     color: white;
     box-shadow: 0 20px 50px rgba(0,0,0,0.25);
+
+    transform: translateZ(0);
 }
 
 /* Title */
 h1 {
-    font-size: clamp(28px, 6vw, 45px); /* ✅ responsive */
+    font-size: clamp(28px, 6vw, 45px);
     margin: 0;
     animation: glow 2s infinite alternate;
 }
@@ -97,14 +94,13 @@ h1 {
     50%{ transform: translateY(-12px); }
 }
 
-/* Text */
 p {
     font-size: 14px;
     margin-top: 10px;
     line-height: 1.5;
 }
 
-/* Confetti */
+/* 🎊 CONFETTI (NO VH USED) */
 .confetti {
     position: fixed;
     width: 6px;
@@ -113,38 +109,35 @@ p {
     animation: fall linear infinite;
 }
 
-
 @keyframes fall {
     to {
-        transform: translateY(110vh) rotate(360deg);
+        transform: translateY(120%) rotate(360deg);
     }
 }
 
-/* Paw prints */
 .paw {
-    position: absolute;
-    font-size: 20px;
-    opacity: 0.6;
-    animation: walk 10s linear infinite;
+    position: fixed;
+    bottom: 25px;
+    font-size: 22px;
+    opacity: 0.8;
+    z-index: 5;
+
+    animation: walkX linear infinite;
 }
 
-@keyframes walk {
-    0%{ left:-10%; top:80%; }
-    100%{ left:110%; top:20%; }
+/* Single animation (no conflict) */
+@keyframes walkX {
+    0%   { transform: translateX(-10vw) translateY(0); }
+    25%  { transform: translateX(25vw) translateY(-6px); }
+    50%  { transform: translateX(50vw) translateY(0); }
+    75%  { transform: translateX(75vw) translateY(-6px); }
+    100% { transform: translateX(110vw) translateY(0); }
 }
 
-/* ✅ Extra small screen tweak */
-@media (max-width: 350px) {
-    .card {
-        padding: 20px 15px;
-    }
-}
-
-/* 🎁 Gift screen */
+/* Gift screen */
 .gift-screen {
     position: fixed;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: linear-gradient(270deg,#ff9a9e,#fad0c4,#ffd1ff);
     display: flex;
     flex-direction: column;
@@ -160,38 +153,35 @@ p {
     animation: bounce 1.5s infinite;
 }
 
-.gift-screen p {
-    margin-top: 10px;
-    font-size: 18px;
-}
-
-/* 💌 Message icon */
-.msg-icon {
+/* CTA */
+.msg-cta {
     position: fixed;
-    bottom: 25px;
-    right: 25px;
-    font-size: 40px;
-    cursor: pointer;
-    display: none; /* hidden initially */
-    animation: jump 1s infinite;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
     z-index: 20;
 }
 
-@keyframes jump {
-    50% { transform: translateY(-10px); }
+.msg-box {
+    background: rgba(255,255,255,0.95);
+    color: #ff4081;
+    padding: 15px 25px;
+    border-radius: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
 }
 
-/* 💬 Popup */
+/* 💬 POPUP (FULLY STABLE) */
 .popup {
     display: none;
     position: fixed;
+    inset: 0;
     z-index: 30;
-    left: 0;
-    top: 0;
     width: 100%;
-    height: 100%;
-    backdrop-filter: blur(8px);
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.5);
+    backdrop-filter: blur(6px);
+
     justify-content: center;
     align-items: center;
 }
@@ -199,13 +189,16 @@ p {
 .popup-content {
     background: white;
     color: #333;
-    padding: 25px;
+    padding: 20px;
     border-radius: 20px;
-    width: 85%;
+
+    width: 80%;
     max-width: 350px;
+    max-height: 80%;
+    overflow-y: auto;
+
     text-align: center;
     line-height: 1.6;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
 .close {
@@ -215,170 +208,32 @@ p {
     font-size: 22px;
     cursor: pointer;
 }
-
-.msg-cta {
-    position: fixed;
-    bottom: 60px;
-    left: 50%;
-    transform: translateX(-50%); /* only positioning */
-    z-index: 999;
-}
-
-.msg-cta.show {
-    opacity: 1;
-    transform:  scale(1);
-}
-
-.msg-box {
-    background: rgba(255,255,255,0.9);
-    color: #ff4081;
-    padding: 15px 25px;
-    border-radius: 20px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-
-    display: flex;
-    align-items: center;
-    gap: 10px;
-
-    /* animation: pulse 1.5s infinite; */
-}
-
-/* ✅ animation now safe */
-@keyframes pulse {
-    0%   { transform: scale(1); }
-    50%  { transform: scale(1.08); }
-    100% { transform: scale(1); }
-}
 </style>
-
 </head>
-
 
 <body>
 
-<!-- 🎁 Gift Screen -->
+<!-- Gift -->
 <div id="giftScreen" class="gift-screen">
     <div class="gift-box" onclick="openGift()">🎁</div>
     <p>Click Me Billi🐱</p>
 </div>
 
-<!-- 🎉 Main Card (hidden initially) -->
+<!-- Card -->
 <div id="mainCard" class="card" style="display:none;">
-
     <div class="cake">🎂</div>
-
     <h1>Happy Birthday</h1>
-
     <div class="name">Billi 🐱</div>
-
-    <!-- ✨ Typing text -->
     <p id="typingText"></p>
-
     <div class="cat">🐱🎀</div>
-
 </div>
 
-<script>
-
-/* 🎁 Open Gift Animation */
-function openGift() {
-    document.getElementById("giftScreen").style.display = "none";
-    document.getElementById("mainCard").style.display = "block";
-
-    startTyping(); // start typing after opening
-}
-
-/* ✨ Typing Effect */
-const message = "Wishing you a day full of treats, smiles, and lots of love… just like a spoiled little cat 😄 🥳";
-let index = 0;
-
-function startTyping() {
-    const el = document.getElementById("typingText");
-
-    function type() {
-        if (index < message.length) {
-            el.innerHTML += message.charAt(index);
-            index++;
-            setTimeout(type, 40); // typing speed
-        }
-    }
-
-    type();
-}
-
-/* 🎊 Confetti */
-for (let i = 0; i < 120; i++) {
-    let c = document.createElement("div");
-    c.className = "confetti";
-    c.style.left = Math.random() * 100 + "vw";
-    c.style.animationDuration = (3 + Math.random() * 3) + "s";
-    c.style.backgroundColor =
-        ["#ff0","#ff4081","#0ff","#0f0","#fff"][Math.floor(Math.random()*5)];
-    document.body.appendChild(c);
-}
-
-/* 🐾 Paw prints */
-for (let i = 0; i < 6; i++) {
-    let paw = document.createElement("div");
-    paw.className = "paw";
-    paw.innerHTML = "🐾";
-    paw.style.animationDelay = i * 2 + "s";
-    document.body.appendChild(paw);
-}
-
-// /* 🎁 Open Gift */
-// function openGift() {
-//     document.getElementById("giftScreen").style.display = "none";
-//     document.getElementById("mainCard").style.display = "block";
-
-//     startTyping();
-
-//     // 💌 show message icon after gift opens
-//     document.getElementById("msgIcon").style.display = "block";
-// }
-function openGift() {
-    document.getElementById("giftScreen").style.display = "none";
-    document.getElementById("mainCard").style.display = "block";
-    document.getElementById("msgCTA").style.display = "block";
-
-    startTyping();
-
-    // 💌 Show CTA after slight delay (better feel)
-    setTimeout(() => {
-        document.getElementById("msgCTA").style.display = "block";
-    }, 1500);
-}
-
-// /* 💌 Show popup */
-// function showMessage() {
-//     document.getElementById("popup").style.display = "flex";
-// }
-function showMessage() {
-    document.getElementById("popup").style.display = "flex";
-    document.getElementById("msgCTA").style.display = "none";
-}
-
-/* ❌ Close popup */
-function closeMessage() {
-    document.getElementById("popup").style.display = "none";
-    document.getElementById("msgCTA").style.display = "block";
-}   
-
-
-</script>
-
-
-<div id="msgCTA" class="msg-cta" style="display:None">
-    <div class="msg-box" onclick="showMessage()" >
-        💌
-        <span>Want to read a message?</span>
-    </div>
+<!-- CTA -->
+<div id="msgCTA" class="msg-cta" style="display:none">
+    <div class="msg-box" onclick="showMessage()">💌 Read Message</div>
 </div>
-<!-- 💬 Popup Message -->
+
+<!-- Popup -->
 <div id="popup" class="popup">
     <div class="popup-content">
         <span class="close" onclick="closeMessage()">×</span>
@@ -391,5 +246,71 @@ function closeMessage() {
         </p>
     </div>
 </div>
+
+<script>
+function openGift() {
+    document.getElementById("giftScreen").style.display = "none";
+    document.getElementById("mainCard").style.display = "block";
+
+    setTimeout(() => {
+        document.getElementById("msgCTA").style.display = "block";
+    }, 1200);
+
+    startTyping();
+}
+
+/* Typing */
+const message = "Wishing you a day full of treats, smiles, and lots of love… just like a spoiled little cat 😄 🥳";
+let index = 0;
+
+function startTyping() {
+    const el = document.getElementById("typingText");
+
+    function type() {
+        if (index < message.length) {
+            el.innerHTML += message.charAt(index);
+            index++;
+            setTimeout(type, 40);
+        }
+    }
+    type();
+}
+
+/* Popup */
+function showMessage() {
+    document.getElementById("popup").style.display = "flex";
+    document.getElementById("msgCTA").style.display = "none";
+}
+
+function closeMessage() {
+    document.getElementById("popup").style.display = "none";
+    document.getElementById("msgCTA").style.display = "block";
+}
+
+/* Confetti */
+for (let i = 0; i < 80; i++) {
+    let c = document.createElement("div");
+    c.className = "confetti";
+    c.style.left = Math.random() * 100 + "%";
+    c.style.animationDuration = (3 + Math.random() * 3) + "s";
+    c.style.backgroundColor =
+        ["#ff0","#ff4081","#0ff","#0f0","#fff"][Math.floor(Math.random()*5)];
+    document.body.appendChild(c);
+}
+
+for (let i = 0; i < 5; i++) {
+    let paw = document.createElement("div");
+    paw.className = "paw";
+    paw.innerHTML = "🐾";
+
+    paw.style.left = "0";  // start inside screen
+    paw.style.bottom = (i % 2 === 0 ? 25 : 40) + "px"; // alternating steps
+    paw.style.animationDuration = (6 + i) + "s";
+    paw.style.animationDelay = i * 1 + "s";
+
+    document.body.appendChild(paw);
+}
+</script>
+
 </body>
 </html>
